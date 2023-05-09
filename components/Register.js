@@ -157,3 +157,79 @@ function Register() {
 }
 
 export default Register;
+
+
+//sign in  stuff
+
+import React, {useState} from 'react'
+import './signIn.css';
+
+function SignIn() {
+
+    const [values, setValues] = useState({
+        username: '',
+        password: ''
+    })
+
+    const [submitted, setSubmited] = useState(false)
+
+    const [valid, setValid] = useState(false)
+
+    const handleUsernameChange = (event) => {
+        event.persist();
+	setValues((values) => ({
+		...values,
+		username: event.target.value,
+	}));
+    }
+
+    const handlePasswordChange = (event) => {
+        event.persist();
+	setValues((values) => ({
+		...values,
+		password: event.target.value,
+	}));
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setSubmited(true)
+        console.log(values)
+        if(values.username && values.password) {
+            setValid(true)
+        }
+    }
+
+  return (
+        <form onSubmit={handleSubmit}>
+            {submitted && valid ?  <div className="success-mesagge">Success! TY for Sign in</div> : null}
+    
+            <input type="text" 
+            className="username-input sign-in-input-fields" 
+            placeholder='Username'
+            value={values.username}  
+            onChange={handleUsernameChange}/> <br/>
+             {submitted && !values.username ? <span>Please enter a username</span> : null}
+            <br></br><br></br>
+
+            
+            <input type="password" 
+            className="password-input sign-in-input-fields" 
+            placeholder='Password'
+            value={values.password} 
+            onChange={handlePasswordChange}/> <br/>
+             {submitted && !values.password ? <span>Please enter a password</span> : null}
+            <br></br><br></br>
+
+            <div className='forgotPassword'>Forgot password?</div>
+            <br></br><br></br>
+            <br></br><br></br>
+
+            <button type="submit" className="submit-btn">SIGN IN</button>  
+            
+
+        </form>
+  )
+}
+
+export default SignIn
